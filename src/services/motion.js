@@ -134,7 +134,7 @@ export class MotionService {
       
       return {
         success: true,
-        workspaces: response.data
+        workspaces: response.data.workspaces || response.data
       };
       
     } catch (error) {
@@ -144,11 +144,11 @@ export class MotionService {
   
   async getProjects(workspaceId = this.workspaceId) {
     try {
-      const response = await this.client.get(`/workspaces/${workspaceId}/projects`);
+      const response = await this.client.get(`/projects?workspaceId=${workspaceId}`);
       
       return {
         success: true,
-        projects: response.data
+        projects: response.data.projects || response.data
       };
       
     } catch (error) {

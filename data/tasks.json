@@ -1,0 +1,722 @@
+[
+  {
+    "id": "1757463482561",
+    "slack_message_ts": "1757463479.867829",
+    "slack_channel_id": "C09EEDLT6EA",
+    "slack_user_id": "U08EH564RH9",
+    "extracted_tasks": [
+      {
+        "title": "Write letter to Labcorp",
+        "assignee": "message_author",
+        "due_date": "Friday",
+        "confidence": "high",
+        "context": "for the nastygram project",
+        "priority": "medium",
+        "estimated_time": null
+      }
+    ],
+    "status": "failed",
+    "created_at": "2025-09-10T00:18:02.561Z",
+    "last_attempt": "2025-09-10T00:18:48.680Z",
+    "error_message": "Motion API error"
+  },
+  {
+    "id": "1757463650552",
+    "slack_message_ts": "1757463647.869089",
+    "slack_channel_id": "C09EEDLT6EA",
+    "slack_user_id": "U08EH564RH9",
+    "extracted_tasks": [
+      {
+        "title": "Write letter to Labcorp",
+        "assignee": "message_author",
+        "due_date": "Friday",
+        "confidence": "high",
+        "context": "for the nastygram project",
+        "priority": "medium",
+        "estimated_time": null
+      }
+    ],
+    "status": "processing",
+    "created_at": "2025-09-10T00:20:50.552Z",
+    "last_attempt": "2025-09-10T00:20:58.088Z"
+  },
+  {
+    "id": "1757463782919",
+    "slack_message_ts": "1757463780.197049",
+    "slack_channel_id": "C09EEDLT6EA",
+    "slack_user_id": "U08EH564RH9",
+    "extracted_tasks": [
+      {
+        "title": "Write letter to Labcorp",
+        "assignee": "message_author",
+        "due_date": "Friday",
+        "confidence": "high",
+        "context": "for the nastygram project",
+        "priority": "medium",
+        "estimated_time": null
+      }
+    ],
+    "status": "completed",
+    "created_at": "2025-09-10T00:23:02.919Z",
+    "last_attempt": "2025-09-10T00:23:14.318Z"
+  },
+  {
+    "id": "1757463885188",
+    "slack_message_ts": "1757463882.425599",
+    "slack_channel_id": "C09EEDLT6EA",
+    "slack_user_id": "U08EH564RH9",
+    "extracted_tasks": [
+      {
+        "title": "Write letter to Labcorp",
+        "assignee": "message_author",
+        "due_date": "Friday",
+        "confidence": "high",
+        "context": "for the nastygram project",
+        "priority": "medium",
+        "estimated_time": null
+      }
+    ],
+    "status": "completed",
+    "created_at": "2025-09-10T00:24:45.188Z",
+    "last_attempt": "2025-09-10T00:24:56.371Z"
+  },
+  {
+    "id": "1757464092419",
+    "slack_message_ts": "1757464087.624339",
+    "slack_channel_id": "C09EEDLT6EA",
+    "slack_user_id": "U08EH564RH9",
+    "extracted_tasks": [
+      {
+        "title": "Write letter to Labcorp",
+        "assignee": "message_author",
+        "due_date": "Friday",
+        "confidence": "high",
+        "context": "for the nastygram project",
+        "priority": "medium",
+        "estimated_time": null
+      }
+    ],
+    "workspace_suggestions": [
+      {
+        "task": {
+          "title": "Write letter to Labcorp",
+          "assignee": "message_author",
+          "due_date": "Friday",
+          "confidence": "high",
+          "context": "for the nastygram project",
+          "priority": "medium",
+          "estimated_time": null
+        },
+        "workspace": {
+          "id": "ws_YvjWxH2RR7DCvTkgXESdSY",
+          "name": "Personal/Nastygram catchup",
+          "teamId": "bQN8_Avk7zz8n-iJjlum6",
+          "type": "TEAM",
+          "labels": [],
+          "taskStatuses": [
+            {
+              "name": "Backlog",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Blocked",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Canceled",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Completed",
+              "isDefaultStatus": false,
+              "isResolvedStatus": true
+            },
+            {
+              "name": "In Progress",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Todo",
+              "isDefaultStatus": true,
+              "isResolvedStatus": false
+            }
+          ]
+        },
+        "project": null,
+        "confidence": "high",
+        "reasoning": "keyword match: \"nastygram\", project context match: nastygram"
+      }
+    ],
+    "status": "completed",
+    "created_at": "2025-09-10T00:28:12.419Z",
+    "last_attempt": "2025-09-10T00:28:21.828Z"
+  },
+  {
+    "id": "1757464258144",
+    "slack_message_ts": "1757464254.389699",
+    "slack_channel_id": "C09EEDLT6EA",
+    "slack_user_id": "U08EH564RH9",
+    "extracted_tasks": [
+      {
+        "title": "Write letter to Labcorp",
+        "assignee": "message_author",
+        "due_date": "Friday",
+        "confidence": "high",
+        "context": "for the nastygram project",
+        "priority": "medium",
+        "estimated_time": null
+      }
+    ],
+    "workspace_suggestions": [
+      {
+        "task": {
+          "title": "Write letter to Labcorp",
+          "assignee": "message_author",
+          "due_date": "Friday",
+          "confidence": "high",
+          "context": "for the nastygram project",
+          "priority": "medium",
+          "estimated_time": null
+        },
+        "workspace": {
+          "id": "ws_YvjWxH2RR7DCvTkgXESdSY",
+          "name": "Personal/Nastygram catchup",
+          "teamId": "bQN8_Avk7zz8n-iJjlum6",
+          "type": "TEAM",
+          "labels": [],
+          "taskStatuses": [
+            {
+              "name": "Backlog",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Blocked",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Canceled",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Completed",
+              "isDefaultStatus": false,
+              "isResolvedStatus": true
+            },
+            {
+              "name": "In Progress",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Todo",
+              "isDefaultStatus": true,
+              "isResolvedStatus": false
+            }
+          ]
+        },
+        "project": {
+          "id": "pr_XLnPgZFuNZvxTFLdxZUD8f",
+          "name": "Nastygrams",
+          "description": "",
+          "completedTime": null,
+          "managerId": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+          "createdByUserId": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+          "dueDate": "2025-09-20T04:59:59.999Z",
+          "createdTime": "2025-09-10T00:24:31.917Z",
+          "updatedTime": "2025-09-10T00:24:31.917Z",
+          "workspaceId": "ws_YvjWxH2RR7DCvTkgXESdSY",
+          "priorityLevel": "MEDIUM",
+          "statusId": "tst_edMv8GSabV4J6GTSriqF4i",
+          "type": "NORMAL",
+          "rank": null,
+          "createdWithAi": false,
+          "projectDefinitionId": null,
+          "activeStageDefinitionId": null,
+          "reconciliationRequestedAt": null,
+          "reconciliationCompletedAt": null,
+          "reconciliationStatus": null,
+          "startDate": "2025-09-09T00:00:00.000Z",
+          "color": "gray",
+          "completedDuration": 0,
+          "canceledDuration": 0,
+          "duration": 0,
+          "completedTaskCount": 0,
+          "canceledTaskCount": 0,
+          "taskCount": 0,
+          "scheduledStatus": null,
+          "estimatedCompletionTime": null,
+          "labels": [],
+          "manager": {
+            "id": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+            "type": "NORMAL",
+            "email": "dpeterkelly@gmail.com",
+            "name": "Dan Kelly",
+            "picture": "gcs-motion-user-profile-pictures-prod/LD1Q8EMzslcquDCkYS6uJ6JulW62-1722353220020.jpg",
+            "createdTime": "2024-05-27T14:23:24.910Z",
+            "updatedTime": "2025-09-10T00:25:05.657Z",
+            "isPlaceholder": false,
+            "onboardingComplete": true,
+            "mainCalendarEmail": "dpeterkelly@gmail.com",
+            "lastActive": "2025-09-10T00:25:05.655Z",
+            "hasActiveSubscription": true,
+            "apiDisabled": false,
+            "deletedTime": null,
+            "noExternalCalendarsModeEnabled": false
+          },
+          "status": {
+            "id": "tst_edMv8GSabV4J6GTSriqF4i",
+            "color": "#889096",
+            "name": "Todo",
+            "sortPosition": "0000b",
+            "isSystemStatus": true,
+            "isResolvedStatus": false,
+            "isDefaultStatus": true,
+            "autoScheduleEnabled": true,
+            "createdTime": "2025-09-09T17:07:38.232Z",
+            "updatedTime": "2025-09-09T17:07:38.232Z",
+            "workspaceId": "ws_YvjWxH2RR7DCvTkgXESdSY",
+            "deletedTime": null,
+            "type": "DEFAULT",
+            "autoScheduleSetting": "ENABLED"
+          },
+          "variableInstances": []
+        },
+        "confidence": "high",
+        "reasoning": "keyword match: \"nastygram\", project context match: nastygram"
+      }
+    ],
+    "status": "completed",
+    "created_at": "2025-09-10T00:30:58.144Z",
+    "last_attempt": "2025-09-10T00:31:06.328Z"
+  },
+  {
+    "id": "1757464640469",
+    "slack_message_ts": "1757464635.684759",
+    "slack_channel_id": "C09EEDLT6EA",
+    "slack_user_id": "U08EH564RH9",
+    "extracted_tasks": [
+      {
+        "title": "Write letter to Labcorp",
+        "assignee": "message_author",
+        "due_date": "Friday",
+        "confidence": "high",
+        "context": "for the nastygram project",
+        "priority": "medium",
+        "estimated_time": null
+      }
+    ],
+    "workspace_suggestions": [
+      {
+        "task": {
+          "title": "Write letter to Labcorp",
+          "assignee": "message_author",
+          "due_date": "Friday",
+          "confidence": "high",
+          "context": "for the nastygram project",
+          "priority": "medium",
+          "estimated_time": null
+        },
+        "workspace": {
+          "id": "ws_YvjWxH2RR7DCvTkgXESdSY",
+          "name": "Personal/Nastygram catchup",
+          "teamId": "bQN8_Avk7zz8n-iJjlum6",
+          "type": "TEAM",
+          "labels": [],
+          "taskStatuses": [
+            {
+              "name": "Backlog",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Blocked",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Canceled",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Completed",
+              "isDefaultStatus": false,
+              "isResolvedStatus": true
+            },
+            {
+              "name": "In Progress",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Todo",
+              "isDefaultStatus": true,
+              "isResolvedStatus": false
+            }
+          ]
+        },
+        "project": {
+          "id": "pr_XLnPgZFuNZvxTFLdxZUD8f",
+          "name": "Nastygrams",
+          "description": "",
+          "completedTime": null,
+          "managerId": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+          "createdByUserId": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+          "dueDate": "2025-09-20T04:59:59.999Z",
+          "createdTime": "2025-09-10T00:24:31.917Z",
+          "updatedTime": "2025-09-10T00:33:23.192Z",
+          "workspaceId": "ws_YvjWxH2RR7DCvTkgXESdSY",
+          "priorityLevel": "MEDIUM",
+          "statusId": "tst_edMv8GSabV4J6GTSriqF4i",
+          "type": "NORMAL",
+          "rank": null,
+          "createdWithAi": false,
+          "projectDefinitionId": null,
+          "activeStageDefinitionId": null,
+          "reconciliationRequestedAt": null,
+          "reconciliationCompletedAt": null,
+          "reconciliationStatus": null,
+          "startDate": "2025-09-09T00:00:00.000Z",
+          "color": "gray",
+          "completedDuration": 0,
+          "canceledDuration": 0,
+          "duration": 60,
+          "completedTaskCount": 0,
+          "canceledTaskCount": 0,
+          "taskCount": 2,
+          "scheduledStatus": null,
+          "estimatedCompletionTime": null,
+          "labels": [],
+          "manager": {
+            "id": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+            "type": "NORMAL",
+            "email": "dpeterkelly@gmail.com",
+            "name": "Dan Kelly",
+            "picture": "gcs-motion-user-profile-pictures-prod/LD1Q8EMzslcquDCkYS6uJ6JulW62-1722353220020.jpg",
+            "createdTime": "2024-05-27T14:23:24.910Z",
+            "updatedTime": "2025-09-10T00:25:05.657Z",
+            "isPlaceholder": false,
+            "onboardingComplete": true,
+            "mainCalendarEmail": "dpeterkelly@gmail.com",
+            "lastActive": "2025-09-10T00:25:05.655Z",
+            "hasActiveSubscription": true,
+            "apiDisabled": false,
+            "deletedTime": null,
+            "noExternalCalendarsModeEnabled": false
+          },
+          "status": {
+            "id": "tst_edMv8GSabV4J6GTSriqF4i",
+            "color": "#889096",
+            "name": "Todo",
+            "sortPosition": "0000b",
+            "isSystemStatus": true,
+            "isResolvedStatus": false,
+            "isDefaultStatus": true,
+            "autoScheduleEnabled": true,
+            "createdTime": "2025-09-09T17:07:38.232Z",
+            "updatedTime": "2025-09-09T17:07:38.232Z",
+            "workspaceId": "ws_YvjWxH2RR7DCvTkgXESdSY",
+            "deletedTime": null,
+            "type": "DEFAULT",
+            "autoScheduleSetting": "ENABLED"
+          },
+          "variableInstances": []
+        },
+        "confidence": "high",
+        "reasoning": "keyword match: \"nastygram\", project context match: nastygram"
+      }
+    ],
+    "status": "completed",
+    "created_at": "2025-09-10T00:37:20.469Z",
+    "last_attempt": "2025-09-10T00:37:28.455Z"
+  },
+  {
+    "id": "1757464700023",
+    "slack_message_ts": "1757464696.186909",
+    "slack_channel_id": "C09EEDLT6EA",
+    "slack_user_id": "U08EH564RH9",
+    "extracted_tasks": [
+      {
+        "title": "Write letter to Labcorp",
+        "assignee": "message_author",
+        "due_date": "Friday",
+        "confidence": "high",
+        "context": "for the nastygram project (note 1.0)",
+        "priority": "medium",
+        "estimated_time": null
+      }
+    ],
+    "workspace_suggestions": [
+      {
+        "task": {
+          "title": "Write letter to Labcorp",
+          "assignee": "message_author",
+          "due_date": "Friday",
+          "confidence": "high",
+          "context": "for the nastygram project (note 1.0)",
+          "priority": "medium",
+          "estimated_time": null
+        },
+        "workspace": {
+          "id": "ws_YvjWxH2RR7DCvTkgXESdSY",
+          "name": "Personal/Nastygram catchup",
+          "teamId": "bQN8_Avk7zz8n-iJjlum6",
+          "type": "TEAM",
+          "labels": [],
+          "taskStatuses": [
+            {
+              "name": "Backlog",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Blocked",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Canceled",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Completed",
+              "isDefaultStatus": false,
+              "isResolvedStatus": true
+            },
+            {
+              "name": "In Progress",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Todo",
+              "isDefaultStatus": true,
+              "isResolvedStatus": false
+            }
+          ]
+        },
+        "project": {
+          "id": "pr_XLnPgZFuNZvxTFLdxZUD8f",
+          "name": "Nastygrams",
+          "description": "",
+          "completedTime": null,
+          "managerId": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+          "createdByUserId": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+          "dueDate": "2025-09-20T04:59:59.999Z",
+          "createdTime": "2025-09-10T00:24:31.917Z",
+          "updatedTime": "2025-09-10T00:37:28.954Z",
+          "workspaceId": "ws_YvjWxH2RR7DCvTkgXESdSY",
+          "priorityLevel": "MEDIUM",
+          "statusId": "tst_edMv8GSabV4J6GTSriqF4i",
+          "type": "NORMAL",
+          "rank": null,
+          "createdWithAi": false,
+          "projectDefinitionId": null,
+          "activeStageDefinitionId": null,
+          "reconciliationRequestedAt": null,
+          "reconciliationCompletedAt": null,
+          "reconciliationStatus": null,
+          "startDate": "2025-09-09T00:00:00.000Z",
+          "color": "gray",
+          "completedDuration": 0,
+          "canceledDuration": 0,
+          "duration": 90,
+          "completedTaskCount": 0,
+          "canceledTaskCount": 0,
+          "taskCount": 3,
+          "scheduledStatus": null,
+          "estimatedCompletionTime": null,
+          "labels": [],
+          "manager": {
+            "id": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+            "type": "NORMAL",
+            "email": "dpeterkelly@gmail.com",
+            "name": "Dan Kelly",
+            "picture": "gcs-motion-user-profile-pictures-prod/LD1Q8EMzslcquDCkYS6uJ6JulW62-1722353220020.jpg",
+            "createdTime": "2024-05-27T14:23:24.910Z",
+            "updatedTime": "2025-09-10T00:37:36.413Z",
+            "isPlaceholder": false,
+            "onboardingComplete": true,
+            "mainCalendarEmail": "dpeterkelly@gmail.com",
+            "lastActive": "2025-09-10T00:37:36.411Z",
+            "hasActiveSubscription": true,
+            "apiDisabled": false,
+            "deletedTime": null,
+            "noExternalCalendarsModeEnabled": false
+          },
+          "status": {
+            "id": "tst_edMv8GSabV4J6GTSriqF4i",
+            "color": "#889096",
+            "name": "Todo",
+            "sortPosition": "0000b",
+            "isSystemStatus": true,
+            "isResolvedStatus": false,
+            "isDefaultStatus": true,
+            "autoScheduleEnabled": true,
+            "createdTime": "2025-09-09T17:07:38.232Z",
+            "updatedTime": "2025-09-09T17:07:38.232Z",
+            "workspaceId": "ws_YvjWxH2RR7DCvTkgXESdSY",
+            "deletedTime": null,
+            "type": "DEFAULT",
+            "autoScheduleSetting": "ENABLED"
+          },
+          "variableInstances": []
+        },
+        "confidence": "high",
+        "reasoning": "keyword match: \"nastygram\", project context match: nastygram"
+      }
+    ],
+    "status": "completed",
+    "created_at": "2025-09-10T00:38:20.023Z",
+    "last_attempt": "2025-09-10T00:38:27.065Z"
+  },
+  {
+    "id": "1757464763554",
+    "slack_message_ts": "1757464758.691789",
+    "slack_channel_id": "C09EEDLT6EA",
+    "slack_user_id": "U08EH564RH9",
+    "extracted_tasks": [
+      {
+        "title": "File documents on BSW",
+        "assignee": "message_author",
+        "due_date": null,
+        "confidence": "medium",
+        "context": "nastygram",
+        "priority": "medium",
+        "estimated_time": null
+      }
+    ],
+    "workspace_suggestions": [
+      {
+        "task": {
+          "title": "File documents on BSW",
+          "assignee": "message_author",
+          "due_date": null,
+          "confidence": "medium",
+          "context": "nastygram",
+          "priority": "medium",
+          "estimated_time": null
+        },
+        "workspace": {
+          "id": "ws_YvjWxH2RR7DCvTkgXESdSY",
+          "name": "Personal/Nastygram catchup",
+          "teamId": "bQN8_Avk7zz8n-iJjlum6",
+          "type": "TEAM",
+          "labels": [],
+          "taskStatuses": [
+            {
+              "name": "Backlog",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Blocked",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Canceled",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Completed",
+              "isDefaultStatus": false,
+              "isResolvedStatus": true
+            },
+            {
+              "name": "In Progress",
+              "isDefaultStatus": false,
+              "isResolvedStatus": false
+            },
+            {
+              "name": "Todo",
+              "isDefaultStatus": true,
+              "isResolvedStatus": false
+            }
+          ]
+        },
+        "project": {
+          "id": "pr_XLnPgZFuNZvxTFLdxZUD8f",
+          "name": "Nastygrams",
+          "description": "",
+          "completedTime": null,
+          "managerId": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+          "createdByUserId": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+          "dueDate": "2025-09-20T04:59:59.999Z",
+          "createdTime": "2025-09-10T00:24:31.917Z",
+          "updatedTime": "2025-09-10T00:38:27.542Z",
+          "workspaceId": "ws_YvjWxH2RR7DCvTkgXESdSY",
+          "priorityLevel": "MEDIUM",
+          "statusId": "tst_edMv8GSabV4J6GTSriqF4i",
+          "type": "NORMAL",
+          "rank": null,
+          "createdWithAi": false,
+          "projectDefinitionId": null,
+          "activeStageDefinitionId": null,
+          "reconciliationRequestedAt": null,
+          "reconciliationCompletedAt": null,
+          "reconciliationStatus": null,
+          "startDate": "2025-09-09T00:00:00.000Z",
+          "color": "gray",
+          "completedDuration": 0,
+          "canceledDuration": 0,
+          "duration": 120,
+          "completedTaskCount": 0,
+          "canceledTaskCount": 0,
+          "taskCount": 4,
+          "scheduledStatus": null,
+          "estimatedCompletionTime": null,
+          "labels": [],
+          "manager": {
+            "id": "LD1Q8EMzslcquDCkYS6uJ6JulW62",
+            "type": "NORMAL",
+            "email": "dpeterkelly@gmail.com",
+            "name": "Dan Kelly",
+            "picture": "gcs-motion-user-profile-pictures-prod/LD1Q8EMzslcquDCkYS6uJ6JulW62-1722353220020.jpg",
+            "createdTime": "2024-05-27T14:23:24.910Z",
+            "updatedTime": "2025-09-10T00:38:49.264Z",
+            "isPlaceholder": false,
+            "onboardingComplete": true,
+            "mainCalendarEmail": "dpeterkelly@gmail.com",
+            "lastActive": "2025-09-10T00:38:49.262Z",
+            "hasActiveSubscription": true,
+            "apiDisabled": false,
+            "deletedTime": null,
+            "noExternalCalendarsModeEnabled": false
+          },
+          "status": {
+            "id": "tst_edMv8GSabV4J6GTSriqF4i",
+            "color": "#889096",
+            "name": "Todo",
+            "sortPosition": "0000b",
+            "isSystemStatus": true,
+            "isResolvedStatus": false,
+            "isDefaultStatus": true,
+            "autoScheduleEnabled": true,
+            "createdTime": "2025-09-09T17:07:38.232Z",
+            "updatedTime": "2025-09-09T17:07:38.232Z",
+            "workspaceId": "ws_YvjWxH2RR7DCvTkgXESdSY",
+            "deletedTime": null,
+            "type": "DEFAULT",
+            "autoScheduleSetting": "ENABLED"
+          },
+          "variableInstances": []
+        },
+        "confidence": "high",
+        "reasoning": "keyword match: \"nastygram\", project context match: nastygram"
+      }
+    ],
+    "status": "completed",
+    "created_at": "2025-09-10T00:39:23.554Z",
+    "last_attempt": "2025-09-10T00:39:31.787Z"
+  }
+]
