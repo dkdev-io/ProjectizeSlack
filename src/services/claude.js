@@ -86,17 +86,31 @@ Return JSON array of task objects. If no actionable tasks found, return empty ar
       // Parse JSON response
       let tasks;
       try {
-        // Handle both array and single object responses
-        const parsed = JSON.parse(content);
+        // Try to extract JSON from the response (Claude might add text before/after)
+        const jsonMatch = content.match(/\[[\s\S]*\]/);
+        const jsonText = jsonMatch ? jsonMatch[0] : content;
+        
+        const parsed = JSON.parse(jsonText);
         tasks = Array.isArray(parsed) ? parsed : [parsed];
       } catch (parseError) {
         console.warn('Failed to parse Claude response as JSON:', content);
-        return {
-          success: false,
-          error: 'Failed to parse AI response',
-          tasks: [],
-          raw_response: content
-        };
+        
+        // Try to extract JSON more aggressively
+        try {
+          const cleanContent = content
+            .replace(/^[^[{]*/, '') // Remove text before JSON
+            .replace(/[^}\]]*$/, ''); // Remove text after JSON
+          
+          const parsed = JSON.parse(cleanContent);
+          tasks = Array.isArray(parsed) ? parsed : [parsed];
+        } catch (secondParseError) {
+          return {
+            success: false,
+            error: 'Failed to parse AI response',
+            tasks: [],
+            raw_response: content
+          };
+        }
       }
       
       // Validate and clean tasks

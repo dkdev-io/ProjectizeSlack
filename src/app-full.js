@@ -9,9 +9,11 @@ import claudeService from './services/claude.js';
 import motionService from './services/motion.js';
 import localStorageService from './services/local-storage.js';
 import WorkspaceMatcherService from './services/workspace-matcher.js';
-import { parseMessage, extractQuotedText } from './utils/parser.js';
+import ConversationAnalyzerService from './services/conversation-analyzer.js';
+import { parseMessage, extractQuotedText, parseTaskEditCommand } from './utils/parser.js';
 
 const workspaceMatcher = new WorkspaceMatcherService(motionService);
+const conversationAnalyzer = new ConversationAnalyzerService(claudeService);
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -35,49 +37,87 @@ app.event('app_mention', async ({ event, client, logger }) => {
     if (command === 'help') {
       await client.chat.postMessage({
         channel,
-        text: `🚀 *Projectize Help*\n\n• \`@projectize [message]\` - Extract tasks\n• \`@projectize help\` - Show this help\n• Quote text with \`>\` and mention me to extract from quotes\n\n*Example:* "I need to write labcorp a letter by Friday for the nastygram project"`
+        text: `🚀 *Projectize Help*\n\n• \`@projectize\` - Analyze conversation history for tasks\n• \`@projectize [message]\` - Extract tasks from specific message\n• \`@projectize help\` - Show this help\n\n*Example:* Just mention me and I'll analyze recent conversation for actionable tasks!`
       });
       return;
     }
     
+    // Determine extraction method
+    let extractionResult;
+    let analysisType;
+    
+    // If no specific content, analyze conversation history
     if (!content || content.trim().length < 10) {
       await client.chat.postMessage({
         channel,
-        text: `Hi! I extract tasks from messages. Try:\n• \`@projectize I need to finish the report by Friday\`\n• \`@projectize help\` for more info`
-      });
-      return;
-    }
-    
-    // Extract tasks using Claude
-    const context = {
-      channelName: channelInfo.channel?.name || 'unknown',
-      authorName: userInfo.user?.real_name || userInfo.user?.name || 'unknown'
-    };
-    
-    await client.chat.postMessage({
-      channel,
-      text: `🔄 Analyzing your message for tasks...`,
-      thread_ts: ts
-    });
-    
-    const extractionResult = await claudeService.extractTasks(content, context);
-    
-    if (!extractionResult.success) {
-      await client.chat.postMessage({
-        channel,
-        text: `⚠️ Sorry, I had trouble processing that message. Error: ${extractionResult.error}`,
+        text: `🔄 Analyzing recent conversation history for tasks...`,
         thread_ts: ts
       });
-      return;
-    }
-    
-    if (extractionResult.tasks.length === 0) {
+      
+      // Get bot user ID for mention detection
+      const botInfo = await client.auth.test();
+      
+      // Analyze conversation history
+      const historyResult = await conversationAnalyzer.analyzeConversationHistory(
+        client, channel, ts, botInfo.user_id
+      );
+      
+      if (!historyResult.success) {
+        await client.chat.postMessage({
+          channel,
+          text: `⚠️ Error analyzing conversation: ${historyResult.error}`,
+          thread_ts: ts
+        });
+        return;
+      }
+      
+      if (historyResult.tasks.length === 0) {
+        await client.chat.postMessage({
+          channel,
+          text: `🤔 No actionable tasks found in recent conversation (${historyResult.messagesAnalyzed} messages analyzed over ${historyResult.timeRange}).`,
+          thread_ts: ts
+        });
+        return;
+      }
+      
+      extractionResult = {
+        success: true,
+        tasks: historyResult.tasks,
+        source: 'conversation_history',
+        messagesAnalyzed: historyResult.messagesAnalyzed,
+        timeRange: historyResult.timeRange
+      };
+      analysisType = `conversation history (${historyResult.messagesAnalyzed} messages over ${historyResult.timeRange})`;
+      
+    } else {
+      // Extract tasks from the specific mention message
       await client.chat.postMessage({
         channel,
-        text: `🤔 I didn't find any clear actionable tasks in that message. Try being more specific about who should do what and when.`,
+        text: `🔄 Analyzing your message for tasks...`,
         thread_ts: ts
       });
-      return;
+      
+      extractionResult = await claudeService.extractTasks(content, context);
+      
+      if (!extractionResult.success) {
+        await client.chat.postMessage({
+          channel,
+          text: `⚠️ Sorry, I had trouble processing that message. Error: ${extractionResult.error}`,
+          thread_ts: ts
+        });
+        return;
+      }
+      
+      if (extractionResult.tasks.length === 0) {
+        await client.chat.postMessage({
+          channel,
+          text: `🤔 I didn't find any clear actionable tasks in that message. Try being more specific about who should do what and when.`,
+          thread_ts: ts
+        });
+        return;
+      }
+      
+      analysisType = 'direct message';
     }
     
     // Get workspace suggestions
@@ -132,7 +172,7 @@ app.event('app_mention', async ({ event, client, logger }) => {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `📋 *Found ${extractionResult.tasks.length} task${extractionResult.tasks.length > 1 ? 's' : ''}:*`
+            text: `📋 *Found ${extractionResult.tasks.length} task${extractionResult.tasks.length > 1 ? 's' : ''} from ${analysisType}:*`
           }
         },
         ...taskBlocks,
@@ -144,6 +184,12 @@ app.event('app_mention', async ({ event, client, logger }) => {
               text: { type: 'plain_text', text: '✅ Create in Motion' },
               style: 'primary',
               action_id: 'approve_tasks',
+              value: ts
+            },
+            {
+              type: 'button',
+              text: { type: 'plain_text', text: '✏️ Edit Tasks' },
+              action_id: 'edit_tasks',
               value: ts
             },
             {
@@ -166,6 +212,104 @@ app.event('app_mention', async ({ event, client, logger }) => {
     });
   }
 });
+
+// Message handler for task edits (replies to edit requests)
+app.message(async ({ message, client, logger }) => {
+  try {
+    // Skip bot messages 
+    if (message.subtype === 'bot_message') return;
+    
+    // Check if this is a reply to an edit request
+    if (message.thread_ts) {
+      await handleTaskEditReply(message, client, logger);
+    }
+    
+  } catch (error) {
+    logger.error('Error handling message:', error);
+  }
+});
+
+async function handleTaskEditReply(message, client, logger) {
+  try {
+    const { text, thread_ts, channel, user } = message;
+    
+    // Check if there's a task in editing state for this thread
+    const storedTask = await localStorageService.getTaskByMessage(thread_ts, channel);
+    
+    if (!storedTask || storedTask.status !== 'editing') {
+      return; // Not an edit reply
+    }
+    
+    console.log(`✏️ Processing edit request: "${text}"`);
+    
+    // Parse edit commands
+    const editCommands = parseTaskEditCommands(text);
+    
+    if (editCommands.length === 0) {
+      await client.chat.postMessage({
+        channel,
+        text: `❓ I didn't understand that edit. Try:\n• \`Remove task 2\`\n• \`Change task 1 assignee to Jenny\`\n• \`Update task 1 due date to Monday\``,
+        thread_ts: thread_ts
+      });
+      return;
+    }
+    
+    // Apply edits to tasks
+    let editedTasks = [...storedTask.extracted_tasks];
+    let editedSuggestions = [...(storedTask.workspace_suggestions || [])];
+    
+    for (const command of editCommands) {
+      const result = applyEditCommand(command, editedTasks, editedSuggestions);
+      editedTasks = result.tasks;
+      editedSuggestions = result.suggestions;
+    }
+    
+    // Filter out removed tasks
+    const validTasks = editedTasks.filter(task => task !== null);
+    const validSuggestions = editedSuggestions.filter((_, index) => editedTasks[index] !== null);
+    
+    if (validTasks.length === 0) {
+      await client.chat.postMessage({
+        channel,
+        text: `🗑️ All tasks removed. Use @projectize again to re-analyze.`,
+        thread_ts: thread_ts
+      });
+      
+      await localStorageService.updateTaskQueue(storedTask.id, {
+        status: 'failed',
+        error_message: 'All tasks removed by user'
+      });
+      return;
+    }
+    
+    // Update stored task with edits
+    await localStorageService.updateTaskQueue(storedTask.id, {
+      extracted_tasks: validTasks,
+      workspace_suggestions: validSuggestions,
+      status: 'pending' // Back to pending for approval
+    });
+    
+    // Re-generate workspace suggestions if needed
+    if (editCommands.some(cmd => cmd.action === 'change_workspace')) {
+      const workspacesResult = await motionService.getWorkspaces();
+      if (workspacesResult.success) {
+        const newSuggestions = await workspaceMatcher.suggestWorkspaceAndProject(validTasks, workspacesResult.workspaces);
+        
+        await localStorageService.updateTaskQueue(storedTask.id, {
+          workspace_suggestions: newSuggestions
+        });
+        
+        validSuggestions = newSuggestions;
+      }
+    }
+    
+    // Post updated preview
+    await postUpdatedTaskPreview(client, channel, validTasks, validSuggestions, thread_ts, editCommands);
+    
+  } catch (error) {
+    logger.error('Error handling task edit reply:', error);
+  }
+}
 
 // Handle task approval
 app.action('approve_tasks', async ({ ack, body, client, logger }) => {
@@ -339,6 +483,33 @@ app.action('reject_tasks', async ({ ack, body, client, logger }) => {
   }
 });
 
+// Handle task editing
+app.action('edit_tasks', async ({ ack, body, client, logger }) => {
+  await ack();
+  
+  try {
+    const messageTs = body.actions[0].value;
+    const channelId = body.channel.id;
+    
+    await client.chat.postMessage({
+      channel: channelId,
+      text: `✏️ **Edit Tasks**\n\nReply to this message with your edits. Examples:\n• \`Remove task 2\`\n• \`Change task 1 assignee to Jenny\`\n• \`Update task 1 due date to Monday\`\n• \`Change task 2 workspace to DKC/Product\`\n\nI'll process your edits and show an updated proposal.`,
+      thread_ts: messageTs
+    });
+    
+    // Mark the task as "editing" so we can detect replies
+    const storedTask = await localStorageService.getTaskByMessage(messageTs, channelId);
+    if (storedTask) {
+      await localStorageService.updateTaskQueue(storedTask.id, {
+        status: 'editing'
+      });
+    }
+    
+  } catch (error) {
+    logger.error('Error handling edit tasks:', error);
+  }
+});
+
 // App home
 app.event('app_home_opened', async ({ event, client, logger }) => {
   try {
@@ -397,3 +568,167 @@ app.error(async (error) => {
     process.exit(1);
   }
 })();
+
+// Utility functions for task editing
+function parseTaskEditCommands(text) {
+  const commands = [];
+  const lowerText = text.toLowerCase();
+  
+  // Remove task X
+  const removeMatch = lowerText.match(/remove\s+task\s+(\d+)/);
+  if (removeMatch) {
+    commands.push({
+      action: 'remove',
+      taskIndex: parseInt(removeMatch[1]) - 1
+    });
+  }
+  
+  // Change task X assignee to Y
+  const assigneeMatch = text.match(/change\s+task\s+(\d+)\s+assignee\s+to\s+(.+)/i);
+  if (assigneeMatch) {
+    commands.push({
+      action: 'change_assignee',
+      taskIndex: parseInt(assigneeMatch[1]) - 1,
+      newValue: assigneeMatch[2].trim()
+    });
+  }
+  
+  // Update task X due date to Y
+  const dueDateMatch = text.match(/(?:update|change)\s+task\s+(\d+)\s+(?:due\s+)?date\s+to\s+(.+)/i);
+  if (dueDateMatch) {
+    commands.push({
+      action: 'change_due_date',
+      taskIndex: parseInt(dueDateMatch[1]) - 1,
+      newValue: dueDateMatch[2].trim()
+    });
+  }
+  
+  // Change task X workspace to Y
+  const workspaceMatch = text.match(/change\s+task\s+(\d+)\s+workspace\s+to\s+(.+)/i);
+  if (workspaceMatch) {
+    commands.push({
+      action: 'change_workspace',
+      taskIndex: parseInt(workspaceMatch[1]) - 1,
+      newValue: workspaceMatch[2].trim()
+    });
+  }
+  
+  return commands;
+}
+
+function applyEditCommand(command, tasks, suggestions) {
+  const newTasks = [...tasks];
+  const newSuggestions = [...suggestions];
+  
+  const { action, taskIndex, newValue } = command;
+  
+  if (taskIndex < 0 || taskIndex >= newTasks.length) {
+    return { tasks: newTasks, suggestions: newSuggestions };
+  }
+  
+  switch (action) {
+    case 'remove':
+      newTasks[taskIndex] = null; // Mark for removal
+      break;
+      
+    case 'change_assignee':
+      if (newTasks[taskIndex]) {
+        newTasks[taskIndex] = { ...newTasks[taskIndex], assignee: newValue };
+      }
+      break;
+      
+    case 'change_due_date':
+      if (newTasks[taskIndex]) {
+        newTasks[taskIndex] = { ...newTasks[taskIndex], due_date: newValue };
+      }
+      break;
+      
+    case 'change_workspace':
+      // This would require re-matching workspaces
+      if (newSuggestions[taskIndex]) {
+        // Mark for re-suggestion
+        newSuggestions[taskIndex] = { ...newSuggestions[taskIndex], needsUpdate: true };
+      }
+      break;
+  }
+  
+  return { tasks: newTasks, suggestions: newSuggestions };
+}
+
+async function postUpdatedTaskPreview(client, channel, tasks, suggestions, threadTs, editCommands) {
+  const editSummary = editCommands.map(cmd => {
+    switch (cmd.action) {
+      case 'remove':
+        return `Removed task ${cmd.taskIndex + 1}`;
+      case 'change_assignee':
+        return `Changed task ${cmd.taskIndex + 1} assignee to ${cmd.newValue}`;
+      case 'change_due_date':
+        return `Updated task ${cmd.taskIndex + 1} due date to ${cmd.newValue}`;
+      case 'change_workspace':
+        return `Changed task ${cmd.taskIndex + 1} workspace to ${cmd.newValue}`;
+      default:
+        return `Unknown edit: ${cmd.action}`;
+    }
+  }).join(', ');
+  
+  const taskBlocks = tasks.map((task, index) => {
+    const suggestion = suggestions[index];
+    let workspaceText = '';
+    
+    if (suggestion) {
+      workspaceText = `\n📁 **${suggestion.workspace.name}**`;
+      if (suggestion.project) {
+        workspaceText += ` > ${suggestion.project.name}`;
+      }
+      workspaceText += ` (${suggestion.confidence} confidence)`;
+      workspaceText += `\n💭 _${suggestion.reasoning}_`;
+    }
+    
+    return {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `*${index + 1}. ${task.title}*\n👤 ${task.assignee} ${task.due_date ? `| 📅 ${task.due_date}` : ''} ${task.confidence ? `| 🎯 ${task.confidence}` : ''}\n${task.context ? `_${task.context}_` : ''}${workspaceText}`
+      }
+    };
+  });
+  
+  await client.chat.postMessage({
+    channel,
+    thread_ts: threadTs,
+    blocks: [
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `✏️ **Updated Tasks** (${editSummary}):`
+        }
+      },
+      ...taskBlocks,
+      {
+        type: 'actions',
+        elements: [
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: '✅ Create in Motion' },
+            style: 'primary',
+            action_id: 'approve_tasks',
+            value: threadTs
+          },
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: '✏️ Edit Again' },
+            action_id: 'edit_tasks',
+            value: threadTs
+          },
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: '❌ Cancel' },
+            action_id: 'reject_tasks',
+            value: threadTs
+          }
+        ]
+      }
+    ]
+  });
+}
